@@ -1,8 +1,26 @@
 import React from 'react';
-import { Alert, Button } from 'react-native';
+import { Modal, Button, View } from 'react-native';
+import { connect } from 'react-redux';
+
+import { openModal } from '../actions/AddDataActions';
+
+function mapStateToProps(state) {
+	return {
+		isOpen: state.isOpen
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		openModal: () => dispatch(openModal())
+	};
+}
 
 const AddDataButton = () => (
-    <Button onPress={() => (Alert.alert('It Worked!'))} title="Click me" />
+    <View>
+        <Button onPress={ openModal } title="Add Data!" />
+    </View>
 );
 
-export default AddDataButton;
+export default connect(mapStateToProps, mapDispatchToProps)(AddDataButton);
+
