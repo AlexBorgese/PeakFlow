@@ -7,7 +7,15 @@ import AddDataButton from '../components/AddDataButton';
 
 function mapStateToProps(state) {
 	return {
-		isOpen: state.isOpen
+		isOpen: state.isOpen,
+		data: state.data
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		saveData: (data) => dispatch(saveData(data)),
+		getData: () => dispatch(getData())
 	};
 }
 
@@ -31,13 +39,22 @@ class LinksScreen extends React.Component {
 							<Text>Add all the data</Text>
 							<TouchableHighlight
 								onPress={() => {
-									this.setModalVisible(!this.props.modalVisible);
+									this.setModalVisible(!this.props.isOpen);
 								}}>
 								<Text>Hide Modal</Text>
+							</TouchableHighlight>
+							<TouchableHighlight
+								onPress={() => {
+									this.setModalVisible(!this.props.isOpen);
+								}}>
+								<Text>Add Data</Text>
 							</TouchableHighlight>
 						</View>
 					</View>
 		 		</Modal>
+				 <Text>
+					 { this.props.data }
+				</Text>
 				<AddDataButton style={ styles.button }/>
 			</ScrollView>
 		);
@@ -56,4 +73,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default connect(mapStateToProps)(LinksScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(LinksScreen);
